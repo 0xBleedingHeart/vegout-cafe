@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Database: `vegout_cafe`
 --
 
+CREATE DATABASE IF NOT EXISTS `vegout_cafe`;
+USE `vegout_cafe`;
+
 -- --------------------------------------------------------
 
 --
