@@ -245,8 +245,7 @@ vegout-cafe/
 
 ### 1. Admin
 - **Username:** `admin`
-- **Email:** `admin@vegout.com`
-- **Password:** `admin123` (default, change after first login)
+- **Password:** `admin123`
 - **Capabilities:**
   - Full system access
   - User management
