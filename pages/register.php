@@ -14,15 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = getDB();
     $hash = password_hash($password, PASSWORD_DEFAULT);
     
-    try {
+    // Check if username or email already exists
+    $check_stmt = $db->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
+    $check_stmt->bind_param('ss', $username, $email);
+    $check_stmt->execute();
+    
+    if ($check_stmt->get_result()->num_rows > 0) {
+        $error = 'Username or email already exists';
+    } else {
         $stmt = $db->prepare("INSERT INTO users (role, username, email, password_hash, full_name) VALUES ('customer', ?, ?, ?, ?)");
         $stmt->bind_param('ssss', $username, $email, $hash, $full_name);
         
         if ($stmt->execute()) {
             $success = 'Registration successful! You can now login.';
+        } else {
+            $error = 'Registration failed. Please try again.';
         }
-    } catch (Exception $e) {
-        $error = 'Username or email already exists';
     }
 }
 
